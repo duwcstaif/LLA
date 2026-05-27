@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.koreanlearningapp.helper.PronunciationHelper
 import com.example.koreanlearningapp.ui.theme.KoreanLearningAppTheme
 import com.example.koreanlearningapp.viewmodel.AuthViewModel
 import com.example.koreanlearningapp.viewmodel.HomeViewModel
@@ -38,7 +39,6 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(
                                 viewModel = authViewModel,
                                 onLoginSuccess = {
-                                    // SỬA Ở ĐÂY: Đăng nhập xong nhảy vào màn 'main' (có menu)
                                     navController.navigate("main") {
                                         popUpTo("login") { inclusive = true }
                                     }
@@ -76,7 +76,8 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("login") {
                                         popUpTo(0) { inclusive = true }
                                     }
-                                }
+                                },
+                                navController
                             )
                         }
 
@@ -115,6 +116,9 @@ class MainActivity : ComponentActivity() {
                             QuizScreen(
                                 onBackClick = { navController.popBackStack() }
                             )
+                        }
+                        composable("recorder"){
+                            PronunciationScreen( )
                         }
                     }
                 }

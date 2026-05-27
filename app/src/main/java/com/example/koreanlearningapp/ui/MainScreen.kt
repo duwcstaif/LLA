@@ -10,11 +10,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun MainScreen(
     onNavigateToLessons: (Int) -> Unit,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    navCtrl : NavController
 ) {
     var selectedTab by remember { mutableIntStateOf(0) }
 
@@ -50,7 +52,7 @@ fun MainScreen(
 
                 // --- ĐÃ THAY ĐỔI Ở ĐÂY ---
                 // Gọi thẳng GameHubScreen thay vì QuizScreen
-                1 -> GameHubScreen()
+                1 -> GameHubScreen(navCtrl)
                 // -------------------------
 
                 2 -> ProfileScreen(onLogout = onLogout)

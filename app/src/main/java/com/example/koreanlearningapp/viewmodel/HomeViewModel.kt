@@ -12,11 +12,9 @@ class HomeViewModel : ViewModel() {
     val lessonList = MutableLiveData<List<Lesson>>()
     val errorMessage = MutableLiveData<String>()
 
-    // Hàm lấy danh sách bài học theo ID Chủ đề
     fun loadLessonsByTopic(topicId: Int) {
         viewModelScope.launch {
             try {
-                // Truyền topicId vào hàm getLessons
                 val response = RetrofitClient.instance.getLessons(topicId)
 
                 if (response.isSuccessful && response.body() != null) {

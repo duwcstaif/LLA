@@ -9,9 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun GameHubScreen() {
+fun GameHubScreen(navCtrl : NavController) {
     // Biến trạng thái: 0 là đang ở Sảnh chờ, 1 là vào phòng Quiz, 2 là vào phòng Đục lỗ
     var currentGame by remember { mutableIntStateOf(0) }
 
@@ -50,6 +51,16 @@ fun GameHubScreen() {
                     shape = RoundedCornerShape(16.dp)
                 ) {
                     Text("🧩 Điền Từ Đục Lỗ (AI)", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                }
+                // Nút Kiểm tra tiếng
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = { navCtrl.navigate("recorder") },
+                    modifier = Modifier.fillMaxWidth().height(65.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text("🧩 Phát Âm", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.koreanlearningapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,7 @@ class AuthViewModel : ViewModel() {
                     val code = response.code()
                     val errorStr = response.errorBody()?.string() ?: "Không có mô tả"
                     loginResult.postValue(Result.failure(Exception("Mã HTTP $code - $errorStr")))
+                    Log.d("error", "Mã HTTP $code - $errorStr")
                 }
             } catch (e: Exception) {
                 // Lỗi sập mạng, không gọi được API, JSON bị vỡ...
