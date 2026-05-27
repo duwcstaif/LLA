@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
@@ -55,26 +56,59 @@ fun MainScreen(
                 1 -> GameHubScreen(navCtrl)
                 // -------------------------
 
-                2 -> ProfileScreen(onLogout = onLogout)
+                2 -> ProfileScreen(onLogout = onLogout, navController = navCtrl)
             }
         }
     }
 }
 
 @Composable
-fun ProfileScreen(onLogout: () -> Unit) {
+fun ProfileScreen(onLogout: () -> Unit, navController: NavController) { // Thêm navController vào tham số
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Xin chào, Học viên!", style = MaterialTheme.typography.headlineMedium)
+            // Thay "Học viên" bằng tên cho xịn
+            Text("Xin chào học viên!", style = MaterialTheme.typography.headlineMedium, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // --- NÚT XEM LỊCH SỬ GHÉP VÀO ĐÂY ---
+            Button(
+                onClick = {
+                    navController.navigate("history") // Lệnh mở màn hình lịch sử
+                },
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(60.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(text = "📖", fontSize = 24.sp, modifier = Modifier.padding(end = 8.dp))
+                    Text(text = "Xem lịch sử từ đã học", fontSize = 18.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
+                }
+            }
+            // -----------------------------------
+
             Spacer(modifier = Modifier.height(16.dp))
+
+            // Nút đăng xuất cũ
             Button(
                 onClick = onLogout,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(55.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
             ) {
-                Text("Đăng xuất")
+                Text("Đăng xuất", fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold)
             }
         }
     }

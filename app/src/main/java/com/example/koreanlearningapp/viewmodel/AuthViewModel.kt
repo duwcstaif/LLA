@@ -58,4 +58,9 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+
+    fun logout() {
+        // Đánh lừa LiveData bằng một cái lỗi ảo để nó xóa mất chữ "Thành công" đi
+        loginResult.postValue(Result.failure(Exception("Đã đăng xuất")))
+    }
 }
