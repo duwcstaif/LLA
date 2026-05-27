@@ -31,7 +31,7 @@ fun PronunciationScreen() {
     var isRecording by remember { mutableStateOf(false) }
     var result by remember { mutableStateOf<PronunciationResult?>(null) }
     var isLoading by remember { mutableStateOf(false) }
-    var referenceText by remember { mutableStateOf("Hello, how are you today?") }
+    var referenceText by remember { mutableStateOf("안녕하세요, 오늘 어떠세요?") }
 
     val scope = rememberCoroutineScope()
 
