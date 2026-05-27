@@ -26,6 +26,7 @@ fun FillBlankScreen(onBackClick: () -> Unit) {
     var selectedAnswer by remember { mutableStateOf<String?>(null) }
     var score by remember { mutableStateOf(0) }
     var quizFinished by remember { mutableStateOf(false) }
+    val context = androidx.compose.ui.platform.LocalContext.current
 
     LaunchedEffect(Unit) {
         try {
@@ -116,13 +117,21 @@ fun FillBlankScreen(onBackClick: () -> Unit) {
                         if (!isAnswered) {
                             selectedAnswer = option
                             isAnswered = true
-                            if (isCorrect) score += 10
+                            if (isCorrect) {
+                                score += 10
+                                // GHI VÀO SỔ LỊCH SỬ NGAY TẠI ĐÂY NÈ
+                                com.example.koreanlearningapp.network.HistoryManager.saveWord(
+                                    context = context,
+                                    word = currentQ.correctAnswer,
+                                    sentence = currentQ.vietnameseTranslation
+                                )
+                            }
                         }
                     },
                     modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp).height(55.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = buttonColor),
                     shape = RoundedCornerShape(12.dp)
-                ) {
+                ){
                     Text(text = option, fontSize = 18.sp, color = Color.White)
                 }
             }

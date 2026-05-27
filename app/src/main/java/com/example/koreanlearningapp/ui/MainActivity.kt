@@ -67,17 +67,19 @@ class MainActivity : ComponentActivity() {
                         // THÊM MỚI: Màn hình chính chứa thanh Menu Bottom
                         composable("main") {
                             MainScreen(
+                                navCtrl = navController,
                                 onNavigateToLessons = { clickedTopicId ->
-                                    // Bấm vào chủ đề ở tab Home -> Chuyển sang danh sách bài học
                                     navController.navigate("home/$clickedTopicId")
                                 },
                                 onLogout = {
-                                    // Bấm đăng xuất -> Xóa sạch lịch sử, văng ra login
+                                    // 1. GỌI HÀM TẨY NÃO ĐỂ XÓA KẾT QUẢ ĐĂNG NHẬP CŨ
+                                    authViewModel.logout()
+
+                                    // 2. SAU ĐÓ MỚI CHUYỂN TRANG VÀ ĐỐT CẦU
                                     navController.navigate("login") {
-                                        popUpTo(0) { inclusive = true }
+                                        popUpTo("main") { inclusive = true }
                                     }
-                                },
-                                navController
+                                }
                             )
                         }
 
@@ -119,6 +121,14 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("recorder"){
                             PronunciationScreen( )
+                        }
+
+                        composable("history") {
+                            HistoryScreen(
+                                onBackClick = {
+                                    navController.popBackStack() // Để bấm quay lại
+                                }
+                            )
                         }
                     }
                 }
